@@ -1,0 +1,116 @@
+.game {
+  width: 600px;
+  height: 200px;
+  border-bottom: 1px solid #000;
+  margin: auto;
+}
+
+#dino {
+  width: 50px;
+  height: 50px;
+  background-image: url("./assets/img/boy.webp");
+  background-size: 50px 50px;
+  position: relative;
+  top: 150px;
+}
+
+#cactus {
+  width: 20px;
+  height: 40px;
+  background-image: url("./assets/img/apple.jpg");
+  background-size: 20px 40px;
+  position: relative;
+  top: 110px;
+  left: 580px;
+  animation: cactusMovement 2s infinite linear; /* продолжается бесконечно и linear дает ускорение */
+}
+
+@keyframes cactusMovement {
+  0% {
+    left: 580px;
+  }
+  100% {
+    left: -20px;
+  }
+}
+
+.jump {
+  animation: jump 0.3s linear;
+}
+
+@keyframes jump {
+  0% {
+    top: 150px;
+  }
+  30% {
+    top: 130px;
+  }
+  50% {
+    top: 80px;
+  }
+  80% {
+    top: 130px;
+  }
+  100% {
+    top: 150px;
+  }
+}
+
+/* Стиль кнопки */
+
+.btn-plus-text {
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#startButton {
+  font-family: Arial, Helvetica, FreeSans, "Liberation Sans", "Nimbus Sans L",
+    sans-serif;
+  font-size: 1.5em;
+  font-weight: 700;
+  color: rgb(245, 245, 245);
+  text-shadow: 0 -1px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+  user-select: none;
+  padding: 0.3em 1em;
+  outline: none;
+  border: none;
+  border-radius: 3px;
+  background: #0c9c0d linear-gradient(#82d18d, #0c9c0d);
+  box-shadow: inset #72de26 0 -1px 1px, inset 0 1px 1px #98ff98,
+    #3caa3c 0 0 0 1px, rgba(0, 0, 0, 0.3) 0 2px 5px;
+  -webkit-animation: pulsate 1.2s linear infinite;
+  animation: pulsate 1.2s linear infinite;
+}
+#startButton:hover {
+  -webkit-animation-play-state: paused;
+  animation-play-state: paused;
+  cursor: pointer;
+}
+#startButton:active {
+  top: 1px;
+  color: #fff;
+  text-shadow: 0 -1px rgba(0, 0, 0, 0.3), 0 0 5px #ffd, 0 0 8px #fff;
+  box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.3), 0 1px 1px #fff,
+    inset 0 1px 2px rgba(0, 0, 0, 0.8), inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+}
+@-webkit-keyframes pulsate {
+  50% {
+    color: #fff;
+    text-shadow: 0 -1px rgba(0, 0, 0, 0.3), 0 0 5px #ffd, 0 0 8px #fff;
+  }
+}
+@keyframes pulsate {
+  50% {
+    color: #fff;
+    text-shadow: 0 -1px rgba(0, 0, 0, 0.3), 0 0 5px #ffd, 0 0 8px #fff;
+  }
+}
+
+/* Стиль текста */
+
+#gameOverText {
+  font-size: 2rem;
+}
