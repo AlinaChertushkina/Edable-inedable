@@ -27,7 +27,7 @@
 
 @keyframes obstacleMovement {
   0% {
-    left: 780px; /*780px; */
+    left: 780px; /*580px; */
   }
   100% {
     left: -40px; /*-20px; */

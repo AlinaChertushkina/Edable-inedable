@@ -33,11 +33,14 @@ girlButton.addEventListener("click", () => {
   }
 });
 
-// Функция для случайного выбора изображения
-function getRandomImage() {
-  const randomIndex = Math.floor(Math.random() * images.length);
-  return images[randomIndex];
-}
+
+// Генерируем случайный порядок изображений
+let shuffledImages = images.sort(function() {
+  return 0.5 - Math.random();
+});
+
+// Устанавливаем свойство background-image для #obstacle
+let currentImageIndex = 0;
 
 // Отключаем анимацию, пока игра не началась
 character.style.animationPlayState = "paused";
@@ -95,20 +98,28 @@ function jump() {
 }
 
 // Обновляем изображение
-function updateObstacleImage() {
-  const randomImage = getRandomImage();
-  obstacle.style.backgroundImage = `url('${randomImage}')`;
-}
+function changeImage() {
+  obstacle.style.backgroundImage = 'url(' + shuffledImages[currentImageIndex] + ')';
+  currentImageIndex++;
+
+  // Если достигнут конец массива, начинаем сначала
+  if (currentImageIndex >= shuffledImages.length) {
+    currentImageIndex = 0;
+  }
+
+   // Задержка перед появлением следующего изображения
+   setTimeout(changeImage, 3000);
+  }
+  
+  // Запускаем функцию смены изображений
+  changeImage(); 
 
 function getObstacleCategory(obstacle) {
   // Получение категории объекта по его изображению
   const obstacleImage = obstacle.style.backgroundImage;
   if (obstacleImage.includes("./assets/img/apple.jpg") || obstacleImage.includes("./assets/img/cake.png") || obstacleImage.includes("./assets/img/potato.png") || obstacleImage.includes("./assets/img/tomato.png")) {
-    return "passThrough"; // Картинки, которые проходят сквозь персонажа
+    return "passThrough";
   } else {
-    return "jumpOver"; // Картинки, которые нужно перепрыгивать
+    return "jumpOver"; 
   }
 }
-
-// Вызываем функцию обновления изображения
-setInterval(updateObstacleImage, 5000);
