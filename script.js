@@ -1,9 +1,11 @@
-const character = document.getElementById("character");
-const obstacle = document.getElementById("obstacle");
-const boyButton = document.getElementById("boyButton");
-const girlButton = document.getElementById("girlButton");
-const startButton = document.getElementById("startButton");
-const gameOverText = document.getElementById("gameOverText");
+const get = (id) => document.getElementById(id);
+
+const character = get("character");
+const obstacle = get("obstacle");
+const boyButton = get("boyButton");
+const girlButton = get("girlButton");
+const startButton = get("startButton");
+const gameOverText = get("gameOverText");
 
 const images = [
   "./assets/img/apple.jpg",
@@ -16,28 +18,22 @@ const images = [
   "./assets/img/tomato.png",
 ];
 
+
 let isGameRunning = false;
 let characterGender = 0;
 
-boyButton.addEventListener("click", () => {
+const setCharacterGender = (gender) => {
   if (!isGameRunning) {
-    characterGender = 0;
-    character.style.backgroundImage = "url('./assets/img/boy.jpg')";
+    characterGender = gender;
+    character.style.backgroundImage = `url('./assets/img/${gender === 0 ? "boy" : "girl"}.jpg')`;
   }
-});
+};
 
-girlButton.addEventListener("click", () => {
-  if (!isGameRunning) {
-    characterGender = 1;
-    character.style.backgroundImage = "url('./assets/img/girl.jpg')";
-  }
-});
+boyButton.addEventListener("click", () => setCharacterGender(0));
+girlButton.addEventListener("click", () => setCharacterGender(1));
 
 
-// Генерируем случайный порядок изображений
-let shuffledImages = images.sort(function() {
-  return 0.5 - Math.random();
-});
+let shuffledImages = images.slice().sort(() => 0.5 - Math.random());
 
 // Устанавливаем свойство background-image для #obstacle
 let currentImageIndex = 0;
@@ -75,7 +71,6 @@ startButton.addEventListener("click", () => {
         // Столкновение с объектом
         if (obstacleCategory === "passThrough") {
           // Проход сквозь объект
-          updateObstacleImage();
         } else if (obstacleCategory === "jumpOver") {
           // Объект, который нужно перепрыгнуть
           clearInterval(isAlive);
