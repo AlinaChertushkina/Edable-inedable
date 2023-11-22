@@ -1,36 +1,36 @@
 .game {
-  width: 600px;
-  height: 200px;
+  width: 800px; /*600px; */
+  height: 300px; /*200px; */
   border-bottom: 1px solid #000;
   margin: auto;
 }
 
-#dino {
-  width: 50px;
-  height: 50px;
-  background-image: url("./assets/img/boy.webp");
-  background-size: 50px 50px;
+#character {
+  width: 80px; /*50px; */
+  height: 100px; /*50px; */
+  background-image: url("./assets/img/boy.jpg");
+  background-size: 80px 100px; /*50px 50px; */
   position: relative;
-  top: 150px;
+  top: 200px; /*150px; */
 }
 
-#cactus {
-  width: 20px;
-  height: 40px;
+#obstacle {
+  width: 40px; /*20px; */
+  height: 50px; /*40px; */
   background-image: url("./assets/img/apple.jpg");
-  background-size: 20px 40px;
+  background-size: 40px 50px;
   position: relative;
-  top: 110px;
-  left: 580px;
-  animation: cactusMovement 2s infinite linear; /* продолжается бесконечно и linear дает ускорение */
+  top: 150px; /*110px; */
+  left: 780px; /*580px; */
+  animation: obstacleMovement 2s infinite linear; /* продолжается бесконечно и linear дает ускорение */
 }
 
-@keyframes cactusMovement {
+@keyframes obstacleMovement {
   0% {
-    left: 580px;
+    left: 780px; /*780px; */
   }
   100% {
-    left: -20px;
+    left: -40px; /*-20px; */
   }
 }
 
@@ -40,29 +40,74 @@
 
 @keyframes jump {
   0% {
-    top: 150px;
+    top: 200px; /*150px; */
   }
   30% {
-    top: 130px;
+    top: 180px; /*130px; */
   }
   50% {
-    top: 80px;
+    top: 130px; /*80px; */
   }
   80% {
-    top: 130px;
+    top: 180px; /*130px; */
   }
   100% {
-    top: 150px;
+    top: 200px; /*130px; */
   }
 }
 
-/* Стиль кнопки */
+/* Стиль кнопок */
+
+.girl-boy-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+  margin-bottom: 20px;
+  gap: 1.5rem;
+}
+
+#boyButton {
+  height: 30px;
+  border: none;
+  border-radius: 10px;
+  text-decoration: none;
+  color: white;
+  background: #66cdaa;
+  box-shadow: 0 5px 0 #458a73;
+}
+
+#girlButton {
+  height: 30px;
+  border: none;
+  border-radius: 10px;
+  text-decoration: none;
+  color: white;
+  background: #ffdab9;
+  box-shadow: 0 5px 0 #ae957e;
+}
+
+#boyButton:hover {
+  background: #458a73;
+  box-shadow: none;
+  position: relative;
+  top: 5px;
+  cursor: pointer;
+}
+
+#girlButton:hover {
+  background: #ae957e;
+  box-shadow: none;
+  position: relative;
+  top: 5px;
+  cursor: pointer;
+}
 
 .btn-plus-text {
   height: 150px;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 }
 
 #startButton {

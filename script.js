@@ -1,5 +1,5 @@
-const dino = document.getElementById("dino");
-const cactus = document.getElementById("cactus");
+const character = document.getElementById("character");
+const obstacle = document.getElementById("obstacle");
 const boyButton = document.getElementById("boyButton");
 const girlButton = document.getElementById("girlButton");
 const startButton = document.getElementById("startButton");
@@ -13,22 +13,23 @@ const images = [
   "./assets/img/cake.png",
   "./assets/img/chair.jpg",
   "./assets/img/potato.png",
+  "./assets/img/tomato.png",
 ];
 
-let isGameRunning = false; //игра не запускается сразу же при запуске игры
-let character = 0; // 0 - мальчик, 1 - девочка
+let isGameRunning = false;
+let characterGender = 0;
 
 boyButton.addEventListener("click", () => {
   if (!isGameRunning) {
-    character = 0;
-    dino.style.backgroundImage = "url('./assets/img/boy.webp')";
+    characterGender = 0;
+    character.style.backgroundImage = "url('./assets/img/boy.jpg')";
   }
 });
 
 girlButton.addEventListener("click", () => {
   if (!isGameRunning) {
-    character = 1;
-    dino.style.backgroundImage = "url('./assets/img/girl.jpg')";
+    characterGender = 1;
+    character.style.backgroundImage = "url('./assets/img/girl.jpg')";
   }
 });
 
@@ -39,17 +40,16 @@ function getRandomImage() {
 }
 
 // Отключаем анимацию, пока игра не началась
-dino.style.animationPlayState = "paused";
-cactus.style.animationPlayState = "paused";
+character.style.animationPlayState = "paused";
+obstacle.style.animationPlayState = "paused";
 
 startButton.addEventListener("click", () => {
   if (!isGameRunning) {
     isGameRunning = true;
     startButton.style.display = "none";
-
-     // Включаем анимацию при старте игры
-     dino.style.animationPlayState = "running";
-     cactus.style.animationPlayState = "running";
+        // Включаем анимацию при старте игры
+    character.style.animationPlayState = "running";
+    obstacle.style.animationPlayState = "running";
 
     document.addEventListener("keydown", function (event) {
       if (event.key === " ") {
@@ -58,45 +58,57 @@ startButton.addEventListener("click", () => {
     });
 
     let isAlive = setInterval(function () {
-        let dinoTop = parseInt(
-          window.getComputedStyle(dino).getPropertyValue("top")
-        );
-        let cactusLeft = parseInt(
-          window.getComputedStyle(cactus).getPropertyValue("left")
-        );
-
-        if (cactusLeft < 50 && cactusLeft > 0 && dinoTop >= 140) {
+      let characterTop = parseInt(
+        window.getComputedStyle(character).getPropertyValue("top")
+      );
+      let obstacleLeft = parseInt(
+        window.getComputedStyle(obstacle).getPropertyValue("left")
+      );
+      
+      // Проверка категорий объектов
+      const obstacleCategory = getObstacleCategory(obstacle);
+      
+      if (obstacleLeft < 80 && obstacleLeft > 0 && characterTop >= 200) {
+        // Столкновение с объектом
+        if (obstacleCategory === "passThrough") {
+          // Проход сквозь объект
+          updateObstacleImage();
+        } else if (obstacleCategory === "jumpOver") {
+          // Объект, который нужно перепрыгнуть
           clearInterval(isAlive);
           gameOverText.style.display = "block";
-
-// Останавливаем анимацию при окончании игры
-dino.style.animationPlayState = "paused";
-cactus.style.animationPlayState = "paused";
+          character.style.animationPlayState = "paused";
+          obstacle.style.animationPlayState = "paused";
         }
+      }
     }, 10);
   }
 });
 
-
 function jump() {
-  if (dino.classList != "jump") {
-    dino.classList.add("jump");
+  if (character.classList != "jump") {
+    character.classList.add("jump");
   }
   setTimeout(function () {
-    dino.classList.remove("jump");
+    character.classList.remove("jump");
   }, 300);
 }
 
-// Обновите изображение как часть анимации куста
-function updateCactusImage() {
+// Обновляем изображение
+function updateObstacleImage() {
   const randomImage = getRandomImage();
-  cactus.style.backgroundImage = `url('${randomImage}')`;
+  obstacle.style.backgroundImage = `url('${randomImage}')`;
 }
 
-// Добавьте вызов функции обновления изображения куста
-setInterval(updateCactusImage, 5000);
+function getObstacleCategory(obstacle) {
+  // Получение категории объекта по его изображению
+  const obstacleImage = obstacle.style.backgroundImage;
+  if (obstacleImage.includes("./assets/img/apple.jpg") || obstacleImage.includes("./assets/img/cake.png") || obstacleImage.includes("./assets/img/potato.png") || obstacleImage.includes("./assets/img/tomato.png")) {
+    return "passThrough"; // Картинки, которые проходят сквозь персонажа
+  } else {
+    return "jumpOver"; // Картинки, которые нужно перепрыгивать
+  }
+}
 
-
-
-
-
+// Вызываем функцию обновления изображения
+setInterval(updateObstacleImage, 5000);
