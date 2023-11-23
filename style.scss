@@ -1,4 +1,3 @@
-@charset "UTF-8";
 .game {
   width: 800px;
   height: 300px;
@@ -23,7 +22,7 @@
   position: relative;
   top: 150px;
   left: 780px;
-  animation: obstacleMovement 2s infinite linear; /* продолжается бесконечно и linear дает ускорение */
+  animation: obstacleMovement 2.5s infinite linear; /* продолжается бесконечно и linear дает ускорение */
 }
 
 @keyframes obstacleMovement {
@@ -34,6 +33,7 @@
     left: -40px;
   }
 }
+
 .jump {
   animation: jump 0.3s linear;
 }
@@ -55,7 +55,30 @@
     top: 200px;
   }
 }
+
 /* Стиль кнопок */
+
+$button-height: 30px;
+$button-border-radius: 10px;
+$button-text-decoration: none;
+$button-color: white;
+$boy-button-background: #66cdaa;
+$girl-button-background: #ffdab9;
+$boy-button-box-shadow: 0 5px 0 #458a73;
+$girl-button-box-shadow: 0 5px 0 #ae957e;
+$button-hover-background: darken($boy-button-background, 20%);
+$button-hover-box-shadow: none;
+$button-hover-position-top: 5px;
+$button-hover-cursor: pointer;
+
+@mixin button {
+  height: $button-height;
+  border: none;
+  border-radius: $button-border-radius;
+  text-decoration: $button-text-decoration;
+  color: $button-color;
+}
+
 .girl-boy-btn {
   display: flex;
   justify-content: center;
@@ -65,40 +88,32 @@
   gap: 1.5rem;
 }
 
-#boyButton {
-  height: 30px;
-  border: none;
-  border-radius: 10px;
-  text-decoration: none;
-  color: white;
+#boyButton {  
+  @include button;
   background: #66cdaa;
   box-shadow: 0 5px 0 #458a73;
 }
 
 #girlButton {
-  height: 30px;
-  border: none;
-  border-radius: 10px;
-  text-decoration: none;
-  color: white;
+  @include button;
   background: #ffdab9;
   box-shadow: 0 5px 0 #ae957e;
 }
 
 #boyButton:hover {
-  background: #329b77;
-  box-shadow: none;
+  background: $button-hover-background;
+  box-shadow: $button-hover-box-shadow;
   position: relative;
-  top: 5px;
-  cursor: pointer;
+  top: $button-hover-position-top;
+  cursor: $button-hover-cursor;
 }
 
 #girlButton:hover {
-  background: #329b77;
-  box-shadow: none;
+  background: $button-hover-background;
+  box-shadow: $button-hover-box-shadow;
   position: relative;
-  top: 5px;
-  cursor: pointer;
+  top: $button-hover-position-top;
+  cursor: $button-hover-cursor;
 }
 
 .btn-plus-text {
@@ -116,8 +131,6 @@
   color: rgb(245, 245, 245);
   text-shadow: 0 -1px rgba(0, 0, 0, 0.1);
   text-decoration: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
   user-select: none;
   padding: 0.3em 1em;
   outline: none;
@@ -126,14 +139,14 @@
   background: #0c9c0d linear-gradient(#82d18d, #0c9c0d);
   box-shadow: inset #72de26 0 -1px 1px, inset 0 1px 1px #98ff98,
     #3caa3c 0 0 0 1px, rgba(0, 0, 0, 0.3) 0 2px 5px;
+  -webkit-animation: pulsate 1.2s linear infinite;
   animation: pulsate 1.2s linear infinite;
 }
-
 #startButton:hover {
+  -webkit-animation-play-state: paused;
   animation-play-state: paused;
   cursor: pointer;
 }
-
 #startButton:active {
   top: 1px;
   color: #fff;
@@ -141,13 +154,21 @@
   box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.3), 0 1px 1px #fff,
     inset 0 1px 2px rgba(0, 0, 0, 0.8), inset 0 -1px 0 rgba(0, 0, 0, 0.05);
 }
+@-webkit-keyframes pulsate {
+  50% {
+    color: #fff;
+    text-shadow: 0 -1px rgba(0, 0, 0, 0.3), 0 0 5px #ffd, 0 0 8px #fff;
+  }
+}
 @keyframes pulsate {
   50% {
     color: #fff;
     text-shadow: 0 -1px rgba(0, 0, 0, 0.3), 0 0 5px #ffd, 0 0 8px #fff;
   }
 }
+
 /* Стиль текста */
+
 #gameOverText {
   font-size: 2rem;
-} /*# sourceMappingURL=style.css.map */
+}
