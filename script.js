@@ -12,10 +12,10 @@ const images = [
   "./assets/img/ball.png",
   "./assets/img/bear.png",
   "./assets/img/bush.jpg",
-  "./assets/img/cake.png",
+  "./assets/img/cupcake.jpg",
   "./assets/img/chair.jpg",
-  "./assets/img/potato.png",
-  "./assets/img/tomato.png",
+  "./assets/img/pumpkin.jpg",
+  "./assets/img/burger.png",
 ];
 
 
@@ -112,7 +112,7 @@ function changeImage() {
 function getObstacleCategory(obstacle) {
   // Получение категории объекта по его изображению
   const obstacleImage = obstacle.style.backgroundImage;
-  if (obstacleImage.includes("./assets/img/apple.jpg") || obstacleImage.includes("./assets/img/cake.png") || obstacleImage.includes("./assets/img/potato.png") || obstacleImage.includes("./assets/img/tomato.png")) {
+  if (obstacleImage.includes("./assets/img/apple.jpg") || obstacleImage.includes("./assets/img/cupcake.jpg") || obstacleImage.includes("./assets/img/pumpkin.jpg") || obstacleImage.includes("./assets/img/burger.png")) {
     return "passThrough";
   } else {
     return "jumpOver"; 
